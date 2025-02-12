@@ -21,6 +21,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.11.2",
     "@hookform/resolvers": "^4.0.0",
     "@prisma/client": "^5.14.0",
     "@radix-ui/react-accordion": "^1.2.3",
@@ -98,5 +99,5 @@
   "ct3aMetadata": {
     "initVersion": "7.38.1"
   },
-  "packageManager": "pnpm@9.9.0"
+  "packageManager": "pnpm@10.3.0+sha256.24dd5c65d86c7d0710aba16699fbc46d74fc9acf2b419f4945207f2de9e57e23"
 }
