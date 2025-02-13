@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -9,9 +10,17 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { Bot, CreditCard, LayoutDashboard, Presentation } from "lucide-react";
+import {
+  Bot,
+  CreditCard,
+  LayoutDashboard,
+  Plus,
+  Presentation,
+} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -38,11 +47,29 @@ const items = [
   },
 ];
 
+const projects = [
+  {
+    name: "project1",
+  },
+  {
+    name: "project2",
+  },
+];
+
 export function AppSidebar() {
+  const { open } = useSidebar();
   const pathname = usePathname();
   return (
     <Sidebar collapsible="icon" variant="floating">
-      <SidebarHeader>Logo</SidebarHeader>
+      <SidebarHeader>
+        <div className="flex items-center gap-2">
+          {/* <Image src="/logo" alt="GitAskLogo" width={40} /> */}
+          <div className="text-lg font-semibold">GA</div>
+          {open && (
+            <div className="text-xl font-bold text-primary/80">GitAsk</div>
+          )}
+        </div>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -67,6 +94,44 @@ export function AppSidebar() {
               })}
             </SidebarMenu>
           </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Your Projects</SidebarGroupLabel>
+          <SidebarContent>
+            <SidebarMenu>
+              {projects.map((project) => {
+                return (
+                  <SidebarMenuItem key={project.name}>
+                    <SidebarMenuButton asChild>
+                      <div>
+                        <div
+                          className={cn(
+                            "flex size-6 items-center justify-center rounded-sm border bg-white text-sm text-primary",
+                            {
+                              "bg-primary text-white": true,
+                            },
+                          )}
+                        >
+                          {project.name[0]}
+                        </div>
+                        {project.name}
+                      </div>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+              <div className="h-2"></div>
+              {open && (
+                <SidebarMenuItem>
+                  <Link href="/create">
+                    <Button className="w-full">
+                      Create project <Plus />
+                    </Button>
+                  </Link>
+                </SidebarMenuItem>
+              )}
+            </SidebarMenu>
+          </SidebarContent>
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
