@@ -19,7 +19,7 @@ const SidebarLayout = ({ children }: Props) => {
             <UserButton />
           </div>
           <div className="h-4"></div>
-          <div className="border-sidebar-border bg-sidebar border shadow rounded-md overflow-y-scroll h-[calc(100vh-4.9rem)]">
+          <div className="border-sidebar-border bg-sidebar border shadow rounded-md overflow-y-scroll h-[calc(100vh-4.9rem)] p-2">
             {children}
           </div>
         </main>
