@@ -127,5 +127,3 @@ async function filterUnprocessedCommits(
 
   return unproccessedCommits;
 }
-
-await pollCommits("cm7as5a9k0000kf5662evyfw3").then(console.log);

@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import CommitLog from "./commit-log";
 
 type Props = {};
 
@@ -36,7 +37,7 @@ const Dashboard = (props: Props) => {
       </div>
       <div className="h-4"></div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">Ask question</div>
-      <div className="mt-8">Commit log</div>
+     <CommitLog /> 
     </div>
   );
 };
