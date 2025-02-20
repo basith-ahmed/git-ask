@@ -55,7 +55,7 @@ export function AppSidebar() {
   const { projects, selectedProjectId, setSelectedProjectId } = useProject();
 
   return (
-    <Sidebar collapsible="icon" variant="floating">
+    <Sidebar collapsible="icon" >
       <SidebarHeader>
         <div className="flex items-center gap-2">
           {/* <Image src="/logo" alt="GitAskLogo" width={40} /> */}
