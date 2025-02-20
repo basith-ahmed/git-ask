@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Document } from "@langchain/core/documents";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
@@ -46,3 +47,30 @@ It is given only as an example of appropriate comments.`,
 
   return response.response.text();
 };
+
+export async function summarizeCode(docs: any) {
+  try {
+    const code = docs.pageContent.slice(0, 10000);
+    const response = await model.generateContent([
+      `You are a intellgent senior software engineer who helps in onboarding juniors into projects.", "You are onboarding a junior software engineer and explaining to them the purpose of the ${docs.metadata.source} file.
+      
+      Here is the code:
+      ${code}
+      
+      give a summary of not more that 150 words.`,
+    ]);
+    return response.response.text();
+  } catch (error) {
+    return "";
+  }
+}
+
+export async function generateEmbedding(summary: string) {
+  const model = genAI.getGenerativeModel({
+    model: "text-embedding-004",
+  });
+  const result = await model.embedContent(summary);
+  const embedding = result.embedding;
+
+  return embedding.values;
+}
