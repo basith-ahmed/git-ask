@@ -5,6 +5,7 @@ import { ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import CommitLog from "./commit-log";
+import AskQuestionCard from "./ask-question-card";
 
 type Props = {};
 
@@ -36,8 +37,10 @@ const Dashboard = (props: Props) => {
         <div>Archive Button</div>
       </div>
       <div className="h-4"></div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">Ask question</div>
-     <CommitLog /> 
+      <div className="p-4">
+        <AskQuestionCard />
+      </div>
+      <CommitLog />
     </div>
   );
 };

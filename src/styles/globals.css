@@ -79,3 +79,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* For Webkit-based browsers (Chrome, Safari, Opera) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE and Edge */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* For Firefox */
+body {
+  scrollbar-width: none; /* Firefox */
+}
