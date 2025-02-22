@@ -10,8 +10,10 @@ import { Textarea } from "@/components/ui/textarea";
 import useProject from "@/hooks/use-project";
 import React, { useState } from "react";
 import { askQuestion } from "./action";
-import { string } from "zod";
+import { set, string } from "zod";
 import { readStreamableValue } from "ai/rsc";
+import MDEditor from "@uiw/react-md-editor";
+import CodeReferences from "./code-references";
 
 type Props = {};
 
@@ -23,15 +25,17 @@ const AskQuestionCard = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [fileReferences, setFileReferences] =
     useState<{ fileName: string; sourceCode: string; summary: string }[]>();
-  const [answer, setAnswer] = useState();
+  const [answer, setAnswer] = useState("");
 
   const onSubmit = async (e: React.FormEvent) => {
+    setAnswer("");
+    setFileReferences([]);
     if (!project?.id) return;
     setLoading(true);
     e.preventDefault();
-    setOpen(true);
-
+    
     const { output, fileReferences } = await askQuestion(question, project.id);
+    setOpen(true);
     setFileReferences(fileReferences);
     for await (const text of readStreamableValue(output)) {
       if (text) {
@@ -44,14 +48,17 @@ const AskQuestionCard = (props: Props) => {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-[80vw]">
           <DialogHeader>
             <DialogTitle>{question}</DialogTitle>
           </DialogHeader>
-          ans: {answer}
-          {fileReferences?.map((file) => {
-            return <span>{file.fileName}</span>;
-          })}
+          <MDEditor.Markdown
+            source={answer}
+            className="h-full max-h-[40vh] max-w-[70vw] overflow-scroll"
+          />
+          <div className="h-2"></div>
+          <CodeReferences fileReferences={fileReferences ?? []} />
+          <Button onClick={() => setOpen(false)}>Close</Button>
         </DialogContent>
       </Dialog>
       <Card className="w-full">
@@ -66,7 +73,7 @@ const AskQuestionCard = (props: Props) => {
               onChange={(e) => setQuestion(e.target.value)}
             />
             <div className="h-4"></div>
-            <Button type="submit">Enter</Button>
+            <Button type="submit" disabled={loading}>Enter</Button>
           </form>
         </CardContent>
       </Card>
