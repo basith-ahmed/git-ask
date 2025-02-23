@@ -85,14 +85,26 @@ export const projectRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       return await ctx.db.question.findMany({
         where: {
-          projectId: input.projectId
+          projectId: input.projectId,
         },
         include: {
-          user: true
+          user: true,
         },
         orderBy: {
-          createdAt: 'desc'
-        }
+          createdAt: "desc",
+        },
+      });
+    }),
+  archiveProject: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.project.update({
+        where: {
+          id: input.projectId,
+        },
+        data: {
+          deletedAt: new Date(),
+        },
       });
     }),
 });
