@@ -17,6 +17,7 @@ import CodeReferences from "./code-references";
 import Logo from "public/logo";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
+import useRefetch from "@/hooks/use-refetch";
 
 type Props = {};
 
@@ -49,6 +50,8 @@ const AskQuestionCard = (props: Props) => {
     setLoading(false);
   };
 
+  const refetch = useRefetch();
+
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -72,6 +75,7 @@ const AskQuestionCard = (props: Props) => {
                     {
                       onSuccess: () => {
                         toast.success("Answer Saved");
+                        refetch();
                       },
                       onError: () => {
                         toast.error("Error in saving answer!");
