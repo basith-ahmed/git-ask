@@ -7,6 +7,7 @@ import React from "react";
 import CommitLog from "./commit-log";
 import AskQuestionCard from "./ask-question-card";
 import ArchiveButton from "./archive-button";
+import InviteButton from "./invite-button";
 
 type Props = {};
 
@@ -35,7 +36,10 @@ const Dashboard = (props: Props) => {
             </div>
           </div>
         </div>
-        <ArchiveButton />
+        <div>
+          <InviteButton />
+          <ArchiveButton />
+        </div>
       </div>
       <div className="h-4"></div>
       <div className="p-4">
