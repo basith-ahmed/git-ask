@@ -14,6 +14,9 @@ import { set, string } from "zod";
 import { readStreamableValue } from "ai/rsc";
 import MDEditor from "@uiw/react-md-editor";
 import CodeReferences from "./code-references";
+import Logo from "public/logo";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
 
 type Props = {};
 
@@ -26,6 +29,7 @@ const AskQuestionCard = (props: Props) => {
   const [fileReferences, setFileReferences] =
     useState<{ fileName: string; sourceCode: string; summary: string }[]>();
   const [answer, setAnswer] = useState("");
+  const saveAnswer = api.project.saveAnswer.useMutation();
 
   const onSubmit = async (e: React.FormEvent) => {
     setAnswer("");
@@ -33,7 +37,7 @@ const AskQuestionCard = (props: Props) => {
     if (!project?.id) return;
     setLoading(true);
     e.preventDefault();
-    
+
     const { output, fileReferences } = await askQuestion(question, project.id);
     setOpen(true);
     setFileReferences(fileReferences);
@@ -50,7 +54,35 @@ const AskQuestionCard = (props: Props) => {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-[80vw]">
           <DialogHeader>
-            <DialogTitle>{question}</DialogTitle>
+            <div className="flex items-center gap-2">
+              <DialogTitle>
+                <Logo />
+              </DialogTitle>
+              <Button
+                variant={"outline"}
+                disabled={saveAnswer.isPending}
+                onClick={() => {
+                  saveAnswer.mutate(
+                    {
+                      projectId: project!.id,
+                      question,
+                      answer,
+                      fileReferences,
+                    },
+                    {
+                      onSuccess: () => {
+                        toast.success("Answer Saved");
+                      },
+                      onError: () => {
+                        toast.error("Error in saving answer!");
+                      },
+                    },
+                  );
+                }}
+              >
+                Save Answer
+              </Button>
+            </div>
           </DialogHeader>
           <MDEditor.Markdown
             source={answer}
@@ -73,7 +105,9 @@ const AskQuestionCard = (props: Props) => {
               onChange={(e) => setQuestion(e.target.value)}
             />
             <div className="h-4"></div>
-            <Button type="submit" disabled={loading}>Enter</Button>
+            <Button type="submit" disabled={loading}>
+              Enter
+            </Button>
           </form>
         </CardContent>
       </Card>
