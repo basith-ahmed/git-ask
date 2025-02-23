@@ -27,6 +27,7 @@ const ArchiveButton = (props: Props) => {
             {
               onSuccess: () => {
                 toast.success("Project Archived.");
+                refetch();
               },
               onError: () => {
                 toast.error("Project couldn't be archived, try again later");
@@ -35,7 +36,7 @@ const ArchiveButton = (props: Props) => {
           );
         }
       }}
-    ></Button>
+    >Archive Project</Button>
   );
 };
 

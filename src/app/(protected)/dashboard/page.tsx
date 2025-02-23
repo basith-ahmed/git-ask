@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 import CommitLog from "./commit-log";
 import AskQuestionCard from "./ask-question-card";
+import ArchiveButton from "./archive-button";
 
 type Props = {};
 
@@ -34,7 +35,7 @@ const Dashboard = (props: Props) => {
             </div>
           </div>
         </div>
-        <div>Archive Button</div>
+        <ArchiveButton />
       </div>
       <div className="h-4"></div>
       <div className="p-4">
