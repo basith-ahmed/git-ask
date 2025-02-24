@@ -8,6 +8,7 @@ import CommitLog from "./commit-log";
 import AskQuestionCard from "./ask-question-card";
 import ArchiveButton from "./archive-button";
 import InviteButton from "./invite-button";
+import TeamMembers from "./team-members";
 
 type Props = {};
 
@@ -36,7 +37,8 @@ const Dashboard = (props: Props) => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="flex">
+          <TeamMembers />
           <InviteButton />
           <ArchiveButton />
         </div>
