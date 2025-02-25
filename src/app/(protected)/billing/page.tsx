@@ -1,5 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { createCheckoutSession } from "@/lib/stripe";
 import { api } from "@/trpc/react";
 import { Info } from "lucide-react";
 import React, { useState } from "react";
@@ -7,6 +10,7 @@ import React, { useState } from "react";
 type Props = {};
 
 const Billing = (props: Props) => {
+
   // userId is loaded from the ctx which is destuctured by the protectedProcedure middleware
   const { data: user } = api.project.getUserCredits.useQuery();
 
@@ -37,6 +41,23 @@ const Billing = (props: Props) => {
           process that repository)
         </p>
       </div>
+      <div className="h-4"></div>
+      <Slider
+        defaultValue={[100]}
+        max={1000}
+        min={10}
+        step={10}
+        onValueChange={(value) => setCreditsToBuy(value)}
+        value={creditsToBuy}
+      />
+      <div className="h-4"></div>
+      <Button
+        onClick={() => {
+          createCheckoutSession(creditsToBuyAmount);
+        }}
+      >
+        Buy {creditsToBuyAmount} credits for {price}
+      </Button>
     </div>
   );
 };
