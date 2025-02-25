@@ -33,14 +33,9 @@ const items = [
     icon: LayoutDashboard,
   },
   {
-    title: "Q&A",
-    url: "/qa",
+    title: "Questions",
+    url: "/questions",
     icon: Bot,
-  },
-  {
-    title: "Meetings",
-    url: "/meetings",
-    icon: Presentation,
   },
   {
     title: "Billing",
@@ -56,7 +51,7 @@ export function AppSidebar() {
   const { projects, selectedProjectId, setSelectedProjectId } = useProject();
 
   return (
-    <Sidebar collapsible="icon" >
+    <Sidebar collapsible="icon">
       <SidebarHeader>
         <div className="flex items-center gap-2">
           {/* <Image src="/logo" alt="GitAskLogo" width={40} /> */}
@@ -96,19 +91,25 @@ export function AppSidebar() {
           <SidebarGroupLabel>Your Projects</SidebarGroupLabel>
           <SidebarContent>
             <SidebarMenu>
+              {open && (
+                <SidebarMenuItem>
+                  <Link href="/create">
+                    <Button className="w-full">
+                      Create project <Plus />
+                    </Button>
+                  </Link>
+                </SidebarMenuItem>
+              )}
+              <div className="h-2"></div>
               {projects?.map((project) => {
                 return (
                   <SidebarMenuItem key={project.name}>
                     <SidebarMenuButton asChild>
                       <div
                         onClick={() => setSelectedProjectId(project.id)}
-                        className={cn(
-                          "bg-white",
-                          {
-                            "bg-primary/5":
-                              project.id === selectedProjectId,
-                          },
-                        )}
+                        className={cn("bg-white", {
+                          "bg-primary/5": project.id === selectedProjectId,
+                        })}
                       >
                         <div
                           className={cn(
@@ -127,16 +128,6 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
-              <div className="h-2"></div>
-              {open && (
-                <SidebarMenuItem>
-                  <Link href="/create">
-                    <Button className="w-full">
-                      Create project <Plus />
-                    </Button>
-                  </Link>
-                </SidebarMenuItem>
-              )}
             </SidebarMenu>
           </SidebarContent>
         </SidebarGroup>

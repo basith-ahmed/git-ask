@@ -24,8 +24,10 @@ export const getCommitHashes = async (
     throw new Error("Invalid github url");
   }
 
+  // fetch all commits
   const { data } = await octokit.rest.repos.listCommits({ owner, repo });
 
+  // sort all commits in order
   const sortedCommmit = data.sort(
     (a: any, b: any) =>
       new Date(b.commit.author.date).getTime() -
@@ -44,6 +46,8 @@ export const getCommitHashes = async (
 export const pollCommits = async (projectId: string) => {
   const { project, githubUrl } = await fetchProjectGithubUrl(projectId);
   const commitHashes = await getCommitHashes(githubUrl);
+
+  // dont process already processed commits
   const unproccessedCommits = await filterUnprocessedCommits(
     projectId,
     commitHashes,
@@ -118,6 +122,7 @@ async function filterUnprocessedCommits(
     where: { projectId },
   });
 
+  // loop in loop (n^2) iterations to filterout processed hashes out of unprocessed ones
   const unproccessedCommits = commitHashes.filter(
     (commit) =>
       !processedCommits.some(

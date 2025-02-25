@@ -15,7 +15,7 @@ import CodeReferences from "../dashboard/code-references";
 
 type Props = {};
 
-const QAPage = (props: Props) => {
+const QuestionsPage = (props: Props) => {
   const { selectedProjectId } = useProject();
   const { data: questions } = api.project.getQuestions.useQuery({
     projectId: selectedProjectId,
@@ -78,4 +78,4 @@ const QAPage = (props: Props) => {
   );
 };
 
-export default QAPage;
+export default QuestionsPage;
