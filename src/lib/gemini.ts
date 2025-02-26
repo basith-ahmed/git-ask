@@ -7,6 +7,7 @@ const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
 });
 
+// Summarize the commits
 export const aiSummarizeCommit = async (diff: string) => {
   const response = await model.generateContent([
     `You are an expert programmer, and you are trying to summarize a git diff.
@@ -48,6 +49,7 @@ It is given only as an example of appropriate comments.`,
   return response.response.text();
 };
 
+// Summarize the code
 export async function summarizeCode(docs: any) {
   try {
     const code = docs.pageContent.slice(0, 10000);
