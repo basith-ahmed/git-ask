@@ -4,6 +4,7 @@ import { Document } from "@langchain/core/documents";
 import { generateEmbedding, summarizeCode } from "./gemini";
 import { db } from "@/server/db";
 
+// Function to load the github repo details and all the files
 export const loadGithubRepo = async (
   githubUrl: string,
   githubToken?: string,
@@ -42,6 +43,7 @@ const generateEmbeddings = async (docs: Document[]) => {
   );
 };
 
+// Create summarize and index them and save the embedding in the db.
 export const indexGithubRepo = async (
   projectId: string,
   githubUrl: string,
