@@ -13,6 +13,7 @@ export const projectRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // backend validation for checking enough credits 
       const user = await ctx.db.user.findUnique({
         where: {
           id: (await ctx.user).userId!,
