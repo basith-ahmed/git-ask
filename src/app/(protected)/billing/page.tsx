@@ -47,7 +47,7 @@ const Billing = (props: Props) => {
         max={1000}
         min={10}
         step={10}
-        onValueChange={(value) => setCreditsToBuy(value)}
+        onValueChange={value => setCreditsToBuy(value)}
         value={creditsToBuy}
       />
       <div className="h-4"></div>
