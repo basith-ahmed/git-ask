@@ -1,7 +1,3 @@
-Certainly! Here's a README for your project:
-
----
-
 # Git-Ask
 
 ## Overview

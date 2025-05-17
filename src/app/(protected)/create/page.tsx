@@ -90,7 +90,7 @@ const CreatePage = () => {
             )}
             <Button type="submit" disabled={createProject.isPending || checkCredits.isPending || !hasEnoughCredits}>
               {!!checkCredits.data ? 'Create Project' : 'Check Credits'}
-              Create Project <ArrowRight />
+              <ArrowRight />
             </Button>
           </form>
         </div>
