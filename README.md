@@ -1,29 +1,34 @@
-# Create T3 App
+Certainly! Here's a README for your project:
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+---
 
-## What's next? How do I make an app with this?
+# Git-Ask
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Overview
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Git-Ask is an application that allows users to submit a GitHub repository URL and ask questions related to that repository. The application fetches repository contents, generates embeddings for each file, and stores them in a Supabase database. Users can then query the repository and receive responses based on the stored embeddings.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Technologies Used
 
-## Learn More
+* **Frontend**: Next.js
+* **Backend**: Langchain, trpc for type-safe APIs
+* **Database**: Supabase (PostgreSQL)
+* **GitHub API**: Used for fetching repository contents
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Features
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+* **GitHub Repo Integration**: Users can submit a GitHub repository URL.
+* **Embedding Generation**: Backend fetches repository contents, generates embeddings, and stores them.
+* **Query Processing**: Backend processes user queries and generates relevant responses based on stored embeddings.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## How It Works
 
-## How do I deploy this?
+1. **Repository Submission**: Users enter a GitHub repository URL.
+2. **Backend Processing**:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+   * The backend fetches contents from the GitHub repository.
+   * Embeddings are generated for each file using Langchain and stored in Supabase.
+3. **Query and Response**:
+
+   * Users can ask questions related to the repository.
+   * Queries are sent to the backend, processed using trpc APIs, and responses are generated based on stored embeddings.
